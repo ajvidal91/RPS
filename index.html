@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Let's Play Rock, Paper, Scissors</h1>
+    <input id="buttonRock" type="button" name="" value="Rock">
+    <input id="buttonPaper" type="button" name="" value="Paper">
+    <input id="buttonScissors" type="button" name="" value="Scissors">
+    <h2 id="human"></h2>
+    <h2 id="computer"></h2>
+    <h2 id="winner"></h2>
+    <h3 id="human-message"></h3>
+    <h3 id="computer-message"></h3>
+<script type="text/javascript">
+//**create global variables
+var botWeapon = 0;
+var playerWeapon = 0;
+var botScore = 0;
+var playerScore = 0;
+var rock = "rock";
+var paper = "paper";
+var scissors = "scissors";
+
+//**create game functions
+//bot chooses weapon
+function botChoice (){
+  var random = Math.floor(Math.random()*30);
+  if (random < 10 ) {
+    botWeapon = rock;
+  }
+  else if (random < 20) {
+    botWeapon = paper;
+  }else if (random < 30) {
+    botWeapon = scissors;
+  }
+}
+//tell player what bot chooses
+function checkWeapon() {
+  if (botWeapon == rock) {
+    document.getElementById('computer-message').innerHTML="Computer chose rock"
+  }
+  else if (botWeapon == paper) {
+    document.getElementById('computer-message').innerHTML="Computer chose paper"
+  }
+  else if (botWeapon == scissors) {
+    document.getElementById('computer-message').innerHTML="Computer chose scissors"
+  }
+}
+//begin the game
+function playGame() {
+  //check if bot wins
+  if (botWeapon == rock && playerWeapon == scissors || botWeapon == paper && playerWeapon == rock || botWeapon == scissors && playerWeapon == paper){
+    document.getElementById("winner").innerHTML="You Win!"
+    botScore +=1;
+    keepScore()
+  }
+  else if (playerWeapon == rock && botWeapon == scissors || playerWeapon == paper && botWeapon == rock || playerWeapon == scissors && botWeapon == paper) {
+    document.getElementById("winner").innerHTML="You Lose!"
+    playerScore +=1;
+    keepScore()
+  }
+  else if (playerWeapon == rock && botWeapon == rock || playerWeapon == paper && botWeapon == paper || playerWeapon == scissors && botWeapon == scissors) {
+    document.getElementById("winner").innerHTML="Hmmm... There was a tie.."
+  }
+}
+
+function keepScore(){
+  document.getElementById("human").innerHTML="Player Score: "+playerScore;
+  document.getElementById("computer").innerHTML="Computer Score: "+botScore;
+}
+
+//**What can the player do?//
+//**choose weapons
+//player chooses rock
+document.getElementById('buttonRock').onclick=function (){
+  playerWeapon = rock
+  document.getElementById('human-message').innerHTML="You chose rock"
+  botChoice()
+  checkWeapon()
+  playGame()
+}
+//player chooses paper
+document.getElementById('buttonPaper').onclick=function (){
+  playerWeapon = paper
+  document.getElementById('human-message').innerHTML="You chose paper"
+  botChoice()
+  checkWeapon()
+  playGame()
+}
+//player chooses scissors
+document.getElementById('buttonScissors').onclick=function (){
+  playerWeapon = scissors
+  document.getElementById('human-message').innerHTML="You chose scissors"
+  botChoice()
+  checkWeapon()
+  playGame()
+}
+
+keepScore();
+
+</script>
+  </body>
+</html>
